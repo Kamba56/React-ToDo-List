@@ -4,11 +4,11 @@ import TodoItem from './TodoItems';
 
 class TodosList extends React.PureComponent {
   render() {
-    const { todos } = this.props;
+    const { todos, handleChangeProps } = this.props;
     return (
       <ul>
         {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem key={todo.id} todo={todo} handleChangeProps={handleChangeProps} />
         ))}
       </ul>
     );
@@ -17,6 +17,7 @@ class TodosList extends React.PureComponent {
 
 TodosList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  handleChangeProps: PropTypes.func.isRequired,
 };
 
 export default TodosList;

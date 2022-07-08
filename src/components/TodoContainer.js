@@ -2,7 +2,7 @@ import React from 'react';
 import TodosList from './TodosList';
 import Header from './Header';
 
-class TodoContainer extends React.Component {
+class TodoContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,7 +10,7 @@ class TodoContainer extends React.Component {
         {
           id: 1,
           title: 'Setup development environment',
-          completed: true,
+          completed: false,
         },
         {
           id: 2,
@@ -26,12 +26,27 @@ class TodoContainer extends React.Component {
     };
   }
 
+  handleChange = (id) => {
+    // const { todos } = this.state;
+    this.setState((prevState) => ({
+      todos: prevState.todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            completed: !todo.completed,
+          };
+        }
+        return todo;
+      }),
+    }));
+  };
+
   render() {
     const { todos } = this.state;
     return (
       <div>
         <Header />
-        <TodosList todos={todos} />
+        <TodosList todos={todos} handleChangeProps={this.handleChange} />
       </div>
     );
   }
